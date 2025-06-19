@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useConversation } from '@/hooks/useConversations';
 import { useConversationStream } from '@/hooks/useConversationStream';
 import { useConversationStore } from '@/stores/conversationStore';
@@ -13,6 +13,9 @@ interface ConversationViewProps {
 export const ConversationView = ({ sessionId }: ConversationViewProps) => {
   const { data: conversation, isLoading, error } = useConversation(sessionId);
   const { streamMessages, currentStreamingId } = useConversationStore();
+  
+  // State for toggling tool results visibility (defaults to false/hidden)
+  const [showToolResults, setShowToolResults] = useState(false);
   
   // Connect to stream if this conversation is currently streaming
   useConversationStream(currentStreamingId === sessionId ? currentStreamingId : null);
@@ -72,10 +75,13 @@ export const ConversationView = ({ sessionId }: ConversationViewProps) => {
         sessionId={sessionId}
         streamingId={currentStreamingId}
         conversation={conversation}
+        showToolResults={showToolResults}
+        onToggleToolResults={setShowToolResults}
       />
       <MessageList 
         messages={allMessages}
         isStreaming={currentStreamingId === sessionId}
+        showToolResults={showToolResults}
       />
     </div>
   );

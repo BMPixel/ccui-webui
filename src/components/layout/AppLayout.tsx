@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useUIStore } from '@/stores/uiStore';
 import { Sidebar } from './Sidebar';
-import { Header } from './Header';
 import { cn } from '@/utils/cn';
 
 export const AppLayout = () => {
@@ -42,7 +41,6 @@ export const AppLayout = () => {
 
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header />
         <main className="flex-1 overflow-hidden">
           <Outlet />
         </main>

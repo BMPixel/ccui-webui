@@ -36,7 +36,7 @@ interface ConversationStore {
   resetSessionCost: () => void;
 }
 
-export const useConversationStore = create<ConversationStore>((set, get) => ({
+export const useConversationStore = create<ConversationStore>((set) => ({
   // Conversation list
   conversations: [],
   setConversations: (conversations) => set({ conversations }),

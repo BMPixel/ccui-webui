@@ -51,6 +51,12 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Custom colors for minimal design
+        highlight: "hsl(var(--highlight))",
+        "user-bubble": "hsl(var(--user-bubble))",
+        "assistant-bubble": "hsl(var(--assistant-bubble))",
+        "system-bubble": "hsl(var(--system-bubble))",
+        "tool-bubble": "hsl(var(--tool-bubble))",
       },
       borderRadius: {
         lg: "var(--radius)",

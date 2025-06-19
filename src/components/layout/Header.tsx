@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Menu, Plus, Settings } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 import { useUIStore } from '@/stores/uiStore';

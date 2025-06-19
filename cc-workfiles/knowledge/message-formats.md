@@ -192,8 +192,8 @@ The `content` field is what varies and contains the actual message data, which c
       {
         "id": "1",
         "content": "Task description",
-        "status": "pending",
-        "priority": "high"
+        "status": "pending/in_progress/completed",
+        "priority": "high/medium/low"
       }
     ]
   }

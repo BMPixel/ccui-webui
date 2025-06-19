@@ -24,6 +24,13 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
+    
+    /* Custom colors for minimal design */
+    --highlight: 18 59% 54%; /* #C96342 */
+    --user-bubble: 36 36% 97%; /* #FAF9F5 */
+    --assistant-bubble: 0 0% 98%; /* Very light gray for assistant */
+    --system-bubble: 120 15% 96%; /* Very muted green for system */
+    --tool-bubble: 45 15% 96%; /* Very muted yellow for tools */
   }
 
   .dark {
@@ -46,6 +53,13 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+    
+    /* Dark mode custom colors */
+    --highlight: 18 59% 54%; /* #C96342 */
+    --user-bubble: 222.2 32.6% 20%; /* Darker version for dark mode */
+    --assistant-bubble: 222.2 32.6% 18%;
+    --system-bubble: 222.2 32.6% 19%;
+    --tool-bubble: 222.2 32.6% 19%;
   }
 }
 
@@ -55,5 +69,19 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Monospace font for assistant and tool content */
+  .assistant-content {
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.5;
+  }
+  
+  /* Keep user content with regular font */
+  .user-content {
+    font-family: inherit;
   }
 }

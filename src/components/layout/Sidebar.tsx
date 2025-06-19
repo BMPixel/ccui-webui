@@ -1,15 +1,22 @@
-import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { MessageSquare, Clock, DollarSign } from 'lucide-react';
+import { MessageSquare, Clock, Plus, Settings, Menu } from 'lucide-react';
 import { useConversations } from '@/hooks/useConversations';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
-import { formatRelativeTime, formatCostSummary, formatPath } from '@/utils/formatters';
+import { Button } from '@/components/common/Button';
+import { formatRelativeTime, formatPath } from '@/utils/formatters';
 import { cn } from '@/utils/cn';
+import { useUIStore } from '@/stores/uiStore';
+import { useConversationStore } from '@/stores/conversationStore';
 
 export const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { data: conversationsData, isLoading, error } = useConversations();
+  const { toggleSidebar, isMobile, setNewConversationModalOpen } = useUIStore();
+  const { isStreaming } = useConversationStore();
+  const { data: conversationsData, isLoading, error } = useConversations({
+    sortBy: 'updated',
+    order: 'desc'
+  });
 
   const conversations = conversationsData?.conversations || [];
 
@@ -20,9 +27,42 @@ export const Sidebar = () => {
   if (error) {
     return (
       <div className="flex flex-col h-full">
+        {/* Top section with logo and controls */}
         <div className="p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Conversations</h2>
+          <div className="flex items-center justify-between mb-4">
+            {isMobile && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleSidebar}
+                className="md:hidden"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            )}
+            
+            <h1 className="text-lg font-semibold text-gray-900 flex-1">
+              CCUI WebUI
+            </h1>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={() => setNewConversationModalOpen(true)}
+              disabled={isStreaming}
+              size="sm"
+              className="flex items-center gap-2 flex-1"
+            >
+              <Plus className="h-4 w-4" />
+              New Chat
+            </Button>
+
+            <Button variant="ghost" size="icon">
+              <Settings className="h-5 w-5" />
+            </Button>
+          </div>
         </div>
+        
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="text-center text-red-600">
             <p>Failed to load conversations</p>
@@ -37,12 +77,40 @@ export const Sidebar = () => {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Header */}
+      {/* Top section with logo and controls */}
       <div className="p-4 border-b border-gray-200">
-        <h2 className="text-lg font-semibold text-gray-900">Conversations</h2>
-        <p className="text-sm text-gray-500 mt-1">
-          {conversations.length} total
-        </p>
+        <div className="flex items-center justify-between mb-4">
+          {isMobile && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleSidebar}
+              className="md:hidden"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          )}
+          
+          <h1 className="text-lg font-semibold text-gray-900 flex-1">
+            CCUI WebUI
+          </h1>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={() => setNewConversationModalOpen(true)}
+            disabled={isStreaming}
+            size="sm"
+            className="flex items-center gap-2 flex-1"
+          >
+            <Plus className="h-4 w-4" />
+            New Chat
+          </Button>
+
+          <Button variant="ghost" size="icon">
+            <Settings className="h-5 w-5" />
+          </Button>
+        </div>
       </div>
 
       {/* Conversation List */}

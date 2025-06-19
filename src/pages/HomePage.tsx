@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { MessageSquare, Plus, Zap } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 import { useUIStore } from '@/stores/uiStore';
@@ -6,7 +6,10 @@ import { useConversations } from '@/hooks/useConversations';
 
 export const HomePage = () => {
   const { setNewConversationModalOpen } = useUIStore();
-  const { data: conversationsData } = useConversations();
+  const { data: conversationsData } = useConversations({
+    sortBy: 'updated',
+    order: 'desc'
+  });
 
   const conversations = conversationsData?.conversations || [];
   const hasConversations = conversations.length > 0;

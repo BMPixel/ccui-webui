@@ -1,5 +1,4 @@
-import React from 'react';
-import { Square, Play, MessageSquare, DollarSign, Clock } from 'lucide-react';
+import { Square, Play, MessageSquare, DollarSign, Clock, Settings } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 import { useStopConversation, useResumeConversation } from '@/hooks/useConversations';
 import { useConversationStore } from '@/stores/conversationStore';
@@ -11,12 +10,16 @@ interface ConversationControlsProps {
   sessionId: string;
   streamingId: string | null;
   conversation: ConversationDetailsResponse;
+  showToolResults: boolean;
+  onToggleToolResults: (show: boolean) => void;
 }
 
 export const ConversationControls = ({ 
   sessionId, 
   streamingId, 
-  conversation 
+  conversation,
+  showToolResults,
+  onToggleToolResults
 }: ConversationControlsProps) => {
   const { isStreaming, currentSessionCost } = useConversationStore();
   const { addToast } = useUIStore();
@@ -91,6 +94,17 @@ export const ConversationControls = ({
 
         {/* Stats and Controls */}
         <div className="flex items-center gap-4">
+          {/* Tool Results Toggle */}
+          <Button
+            onClick={() => onToggleToolResults(!showToolResults)}
+            variant={showToolResults ? "default" : "outline"}
+            size="sm"
+            className="flex items-center gap-2"
+          >
+            <Settings className="h-4 w-4" />
+            {showToolResults ? 'Hide Results' : 'Show Results'}
+          </Button>
+
           {/* Cost */}
           <div className="flex items-center gap-1 text-sm text-gray-600">
             <DollarSign className="h-4 w-4" />
